@@ -1,5 +1,9 @@
 ### Processor
 
+Processor is an API for getting difficulty information of maps.
+
+The purpose of processor is caching map information into local database. At first, the database is empty, each query of api will use crawler to fetch information from official website. For security consideration, by default, each page have 0.5 sec delay.
+
 1.Virtualenv
 
     virtualenv -p /usr/local/bin/python3.5 env
@@ -23,18 +27,18 @@ API:
 
     For example: https://osu.ppy.sh/s/332532
 
-    Get all difficult information of standard mode: 
+    Get all difficulty information of standard mode: 
 
     http://127.0.0.1:8000/api/332532/0
 
-    Get all difficult information of taiko mode: 
+    Get all difficulty information of taiko mode: 
 
     http://127.0.0.1:8000/api/332532/1
 
-    Get all difficult information of ctb mode: 
+    Get all difficulty information of ctb mode: 
 
     http://127.0.0.1:8000/api/332532/2
 
-    Get all difficult information of mania mode: 
+    Get all difficulty information of mania mode: 
   
     http://127.0.0.1:8000/api/332532/3
