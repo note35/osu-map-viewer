@@ -6,6 +6,15 @@ __pycache__/
 # C extensions
 *.so
 
+# vim
+*.swp
+
+#db
+db.sqlite3
+
+# macosx
+.DS_Store
+
 # Distribution / packaging
 .Python
 env/
