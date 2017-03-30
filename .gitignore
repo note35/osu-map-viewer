@@ -1,3 +1,19 @@
+# nodejs
+node_modules
+static
+
+#react
+.grunt
+_SpecRunner.html
+__benchmarks__
+.module-cache
+*.gem
+examples/shared/*.js
+examples/**/bundle.js
+fixtures/dom/public/react-dom.js
+fixtures/dom/public/react.js
+test/the-files-to-test.generated.js
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -8,6 +24,7 @@ __pycache__/
 
 # vim
 *.swp
+*~
 
 #db
 db.sqlite3
@@ -53,6 +70,8 @@ nosetests.xml
 coverage.xml
 *,cover
 .hypothesis/
+coverage/
+
 
 # Translations
 *.mo
@@ -61,6 +80,7 @@ coverage.xml
 # Django stuff:
 *.log
 local_settings.py
+*.log*
 
 # Flask stuff:
 instance/
@@ -71,6 +91,13 @@ instance/
 
 # Sphinx documentation
 docs/_build/
+docs/.bundle
+docs/code
+docs/_site
+docs/.sass-cache
+docs/js/*
+docs/downloads/*.zip
+docs/vendor/bundle
 
 # PyBuilder
 target/
@@ -96,3 +123,11 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# additional 
+chrome-user-data
+*.sublime-project
+*.sublime-workspace
+.idea
+*.iml
+.vscode
