@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'crawler',
     'api',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -54,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'processor.urls'
@@ -133,3 +135,24 @@ REST_FRAMEWORK = {
         #'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
 }
+
+CORS_ORIGIN_WHITELIST = (
+    'localhost:8081',
+    '127.0.0.1:8081',
+)
+
+CORS_ALLOW_METHODS = (
+    'GET',
+)
+
+CORS_ALLOW_HEADERS = (
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+)
