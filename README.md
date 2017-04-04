@@ -1,3 +1,27 @@
+![compare](https://github.com/note35/osu-map-viewer/blob/master/demo/demo.png)
+
+### Viewer
+
+View is a front-end map search engine.
+
+1.Install
+
+    npm install
+
+2.Run
+
+    npm run dev
+
+Access:
+
+    http://127.0.0.1:8080/
+
+Instruction:
+
+    Red:   update map information once only
+    Green: update map information in each search
+
+
 ### Processor
 
 Processor is an API for getting difficulty information of maps.
@@ -42,3 +66,7 @@ API:
     Get all difficulty information of mania mode: 
   
     http://127.0.0.1:8000/api/332532/3
+
+    Update difficulty information:
+
+    http://127.0.0.1:8000/api/332532/1/1
