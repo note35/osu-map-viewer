@@ -65,9 +65,9 @@ def retrieve_mapset(setid, mode):
 
 class MapSetAPI(APIView):
 
-    def get(self, request, setid, mode):
+    def get(self, request, setid, mode, update=False):
         mapset = retrieve_mapset(setid, mode)
 
-        if not mapset or not mapset["maps"]:
+        if update or not mapset or not mapset["maps"]:
             return redirect(reverse("crawler:index", kwargs={"setid": setid, "mode": mode}))
         return Response(mapset)

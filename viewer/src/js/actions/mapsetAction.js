@@ -14,12 +14,10 @@ export function fetchMapsetFromDB(url, mode, force) {
     mode = 3;
 
   let query_url = ""
-  /*
-  Todo: because cors can not be handled by redirect, the backend API need to be modified.
+
   if(force)
-    query_url = "http://127.0.0.1:8000/crawler?setid="+setid+"&mode="+mode;
+    query_url = "http://127.0.0.1:8000/api/"+setid+"/"+mode+"/1?format=json";
   else
-  */
     query_url = "http://127.0.0.1:8000/api/"+setid+"/"+mode+"?format=json";
 
   return {
