@@ -59,17 +59,14 @@ def index(request, setid=None, mode=None):
         mode = request.GET.get("mode") or mode or "0"
 
     if not setid:
-        return HttpResponse(
-            'Get mapset info: ' + request.build_absolute_uri()[0:-1] + '?setid=setid'
-        )
+        return redirect(reverse("api:error404"));
 
     mc = MapCrawler()
     basic_info = mc.get_basic_info(setid)
+
     if not basic_info:
-        return HttpResponse(
-            'The beatmap you are looking for was not found!<br/>' +
-            '<a href="javascript:history.back();">[Go Back]</a>'
-        )
+        return redirect(reverse("api:error404"));
+
     ret = mc.get_diff_info(basic_info, mode)
 
     mapset_model = save_mapset(setid, ret)

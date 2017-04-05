@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
+from django.http import HttpResponseNotFound
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -71,3 +72,6 @@ class MapSetAPI(APIView):
         if update or not mapset or not mapset["maps"]:
             return redirect(reverse("crawler:index", kwargs={"setid": setid, "mode": mode}))
         return Response(mapset)
+
+def handle404(request):
+    return HttpResponseNotFound('Beatmap not found.')

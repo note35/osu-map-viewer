@@ -42,6 +42,11 @@ export default class Layout extends React.Component {
       this.props.dispatch(fetchMapsetFromDB(this.props.selector.text, this.props.selector.mode, this.props.selector.update)).then(() => {
         this.props.dispatch(changeDiff(this.getOrderDiffs(this.props.mapset)[0][0]));
         this.props.dispatch(changeLoadingStat(false));
+      }).catch(() => {
+        if(this.props.mapsetError) {
+            this.props.dispatch(changeLoadingStat(false));      
+            alert("Beatmap is not found");
+        }
       });
     } else {
       alert("Please enter a valid url");
