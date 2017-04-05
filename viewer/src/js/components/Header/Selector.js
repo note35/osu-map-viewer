@@ -23,7 +23,6 @@ export default class Selector extends React.Component {
             fetch_mapset_event={this.props.fetch_mapset_event}
           />
           <ModeButton
-            modes={this.props.modes}
             search_mode_onchange={this.props.search_mode_onchange}
           />
           <DiffButton

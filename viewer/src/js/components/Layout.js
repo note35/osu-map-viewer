@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { fetchMapsetFromDB } from "../actions/mapsetAction";
+import { changeLoadingStat, changeUpdate, changeNotUpdate, changeText, changeMode, changeDiff, changePrediff } from "../actions/selectorAction";
 import Footer from "./Footer";
 import Header from "./Header";
 import Viewer from "./Viewer";
@@ -12,42 +13,35 @@ import Viewer from "./Viewer";
     mapsetFetching: store.mapset.fetching,
     mapsetFetched: store.mapset.fetched,
     mapsetError: store.mapset.error,
+    selector: store.selector,
   };
 })
 export default class Layout extends React.Component {
   constructor() {
     super();
-    this.state = {
-      "forced_update": false,
-      "search_text": "",
-      "search_mode": "Standard",
-      "search_diff": "",
-      "previous_diff": "",
-      "searching": false,
-    };
   }
 
   changeForcedUpdate(e) {
-    if(this.state.forced_update == false) {
-      this.setState({"forced_update": true,});
-    }
-    else if (this.state.forced_update == true) {
-      this.setState({"forced_update": false,})
+    if(this.props.selector.update == false) {
+      this.props.dispatch(changeUpdate());
+    } else if(this.props.selector.update == true) {
+      this.props.dispatch(changeNotUpdate());
     }
   }
 
   changeSearchText(e) {
-    this.setState({"search_text": e.target.value,});
+    this.props.dispatch(changeText(e.target.value));
   } 
 
   fetchMapset() {
-    if(this.state.search_diff)
-      this.setState({"previous_diff": this.state.search_diff});
+    if(this.props.selector.diff)
+      this.props.dispatch(changePrediff(this.props.selector.diff));
 
-    if(this.state.search_text.includes("https://osu.ppy.sh/s/") && this.state.search_text.indexOf("https://osu.ppy.sh/s/") == 0) {
-      this.setState({"searching": true});
-      this.props.dispatch(fetchMapsetFromDB(this.state.search_text, this.state.search_mode, this.state.forced_update)).then(() => {
-        this.setState({"search_diff": this.getOrderDiffs(this.props.mapset)[0][0], "searching": false});
+    if(this.props.selector.text.includes("https://osu.ppy.sh/s/") && this.props.selector.text.indexOf("https://osu.ppy.sh/s/") == 0) {
+      this.props.dispatch(changeLoadingStat(true));
+      this.props.dispatch(fetchMapsetFromDB(this.props.selector.text, this.props.selector.mode, this.props.selector.update)).then(() => {
+        this.props.dispatch(changeDiff(this.getOrderDiffs(this.props.mapset)[0][0]));
+        this.props.dispatch(changeLoadingStat(false));
       });
     } else {
       alert("Please enter a valid url");
@@ -55,8 +49,8 @@ export default class Layout extends React.Component {
   }
 
   changeSearchDiff(e) {
-    this.setState({"previous_diff": this.state.search_diff});
-    this.setState({"search_diff": e.target.value,});
+    this.props.dispatch(changePrediff(this.props.selector.diff));
+    this.props.dispatch(changeDiff(e.target.value));
   }
 
   getOrderDiffs(mapset) {
@@ -75,12 +69,8 @@ export default class Layout extends React.Component {
     }
   }
 
-  getModes() {
-    return ["Standard", "Taiko", "Ctb", "Mania"];
-  }
-
   changeSearchMode(e) {
-    this.setState({"search_mode": e.target.value,});
+    this.props.dispatch(changeMode(e.target.value));
   }
 
   render() {
@@ -88,21 +78,20 @@ export default class Layout extends React.Component {
       <div>
         <Header
           forced_update_event={this.changeForcedUpdate.bind(this)}
-          forced_update={this.state.forced_update}
-          search_text={this.state.search_text}
+          forced_update={this.props.selector.update}
+          search_text={this.props.selector.text}
           search_text_onchange={this.changeSearchText.bind(this)}
           fetch_mapset_event={this.fetchMapset.bind(this)}
           diffs={this.getOrderDiffs(this.props.mapset)} //using this.props.mapset
           search_diff_onchange={this.changeSearchDiff.bind(this)}
-          modes={this.getModes()}
           search_mode_onchange={this.changeSearchMode.bind(this)}
         />
         <Viewer
-          diff={this.state.search_diff}
-          mode={this.state.search_mode}
+          diff={this.props.selector.diff}
+          mode={this.props.selector.mode}
           mapset={this.props.mapset}
-          previous_diff={this.state.previous_diff}
-          searching={this.state.searching}
+          previous_diff={this.props.selector.prediff}
+          searching={this.props.selector.loading}
         />
         <Footer />
       </div>

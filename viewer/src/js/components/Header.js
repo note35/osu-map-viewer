@@ -17,7 +17,6 @@ export default class Header extends React.Component {
           fetch_mapset_event={this.props.fetch_mapset_event}
           diffs={this.props.diffs}
           search_diff_onchange={this.props.search_diff_onchange}
-          modes={this.props.modes}
           search_mode_onchange={this.props.search_mode_onchange}
         />
       </div>

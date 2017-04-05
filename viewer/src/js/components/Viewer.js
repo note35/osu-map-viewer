@@ -8,11 +8,10 @@ export default class Viewer extends React.Component {
     let title = "Title of Song"; 
     if(this.props.mapset) {
        const { mapset } = this.props;
-       title = mapset.data.general_info.title;
     }
     return (
       <div class="ts container">
-        <div class="ts horizontal divider">{title}</div>
+        <div class="ts horizontal divider"></div>
         <div class="ts segment">
           <Loading
             searching={this.props.searching}
