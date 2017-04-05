@@ -2,19 +2,14 @@ import React from "react";
 
 export default class ForcedButton extends React.Component {
   render() {
-    if(this.props.forced_update == false){
-      return (
-        <button onClick={this.props.forced_update_event} class="ts circular icon negative button">
-          <i class="Lightning icon"></i>
-        </button>
-      )
-    } 
-    else if(this.props.forced_update == true) {
-      return (
-        <button onClick={this.props.forced_update_event} class="ts circular icon positive button">
-          <i class="Lightning icon"></i>
-        </button>
-      )
+    let button_class = "ts circular icon negative button";
+    if(this.props.update){
+      button_class = "ts circular icon positive button";
     }
+    return (
+      <button onClick={this.props.update_onoff} class={button_class}>
+        <i class="Lightning icon"></i>
+      </button>
+    )
   }
 }

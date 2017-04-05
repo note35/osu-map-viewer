@@ -12,22 +12,22 @@ export default class Selector extends React.Component {
       <div class="ts basic borderless slate vertically fitted">
         <span class="description">
           <ForcedButton
-            forced_update_event={this.props.forced_update_event}
-            forced_update={this.props.forced_update}
+            update_onoff={this.props.update_onoff}
+            update={this.props.update}
           />
           <SearchBar
-            search_text={this.props.search_text}
-            search_text_onchange={this.props.search_text_onchange}
+            text={this.props.text}
+            text_onchange={this.props.text_onchange}
           />
           <SearchBarUpdate
             fetch_mapset_event={this.props.fetch_mapset_event}
           />
           <ModeButton
-            search_mode_onchange={this.props.search_mode_onchange}
+            mode_onchange={this.props.mode_onchange}
           />
           <DiffButton
             diffs={this.props.diffs}
-            search_diff_onchange={this.props.search_diff_onchange}
+            diff_onchange={this.props.diff_onchange}
           />
         </span>
       </div>

@@ -10,7 +10,7 @@ export default class DiffButton extends React.Component {
       )
     }
     return (
-      <select class="ts borderless basic dropdown" onChange={this.props.search_diff_onchange}>
+      <select class="ts borderless basic dropdown" onChange={this.props.diff_onchange}>
         {
           diffs.map((val) => <option key={val[0]} value={val[0]}>{val[0]}</option>)
         }

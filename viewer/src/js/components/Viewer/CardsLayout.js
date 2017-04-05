@@ -9,17 +9,17 @@ export default class CardsLayout extends React.Component {
       <div class="ts two cards">
         <div class="ts card">
           <InfoCard
+            mapset={this.props.mapset}
             diff={this.props.diff}
             mode={this.props.mode}
-            mapset={this.props.mapset}
           />
         </div>
         <div class="ts card">
           <ChartCard
+            mapset={this.props.mapset}
             diff={this.props.diff}
             mode={this.props.mode}
-            mapset={this.props.mapset}
-            previous_diff={this.props.previous_diff}
+            prediff={this.props.prediff}
           />
         </div>
       </div>

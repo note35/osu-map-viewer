@@ -5,7 +5,7 @@ export default class SearchBar extends React.Component {
     return (
       <div class="ts focus input">
         <input type="text"
-          onChange={this.props.search_text_onchange}
+          onChange={this.props.text_onchange}
           placeholder="https://osu.ppy.sh/s/1"
         />
       </div>

@@ -76,27 +76,28 @@ export default class Layout extends React.Component {
 
   changeSearchMode(e) {
     this.props.dispatch(changeMode(e.target.value));
+    this.fetchMapset();
   }
 
   render() {
     return (
       <div>
         <Header
-          forced_update_event={this.changeForcedUpdate.bind(this)}
-          forced_update={this.props.selector.update}
-          search_text={this.props.selector.text}
-          search_text_onchange={this.changeSearchText.bind(this)}
+          update_onoff={this.changeForcedUpdate.bind(this)}
+          update={this.props.selector.update}
+          text={this.props.selector.text}
+          text_onchange={this.changeSearchText.bind(this)}
           fetch_mapset_event={this.fetchMapset.bind(this)}
           diffs={this.getOrderDiffs(this.props.mapset)} //using this.props.mapset
-          search_diff_onchange={this.changeSearchDiff.bind(this)}
-          search_mode_onchange={this.changeSearchMode.bind(this)}
+          diff_onchange={this.changeSearchDiff.bind(this)}
+          mode_onchange={this.changeSearchMode.bind(this)}
         />
         <Viewer
+          mapset={this.props.mapset}
           diff={this.props.selector.diff}
           mode={this.props.selector.mode}
-          mapset={this.props.mapset}
-          previous_diff={this.props.selector.prediff}
-          searching={this.props.selector.loading}
+          prediff={this.props.selector.prediff}
+          loading={this.props.selector.loading}
         />
         <Footer />
       </div>

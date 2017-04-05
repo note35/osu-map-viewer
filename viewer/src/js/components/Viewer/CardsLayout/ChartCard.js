@@ -18,7 +18,7 @@ export default class ChartCard extends React.Component {
           labels: ["CS", "AR", "OD", "HP", "Star"],
           datasets: [
             {
-              label: this.props.diff,
+              label: "Current",
               backgroundColor: "rgba(179,181,198,0.2)",
               borderColor: "rgba(179,181,198,1)",
               pointBackgroundColor: "rgba(179,181,198,1)",
@@ -30,7 +30,7 @@ export default class ChartCard extends React.Component {
           ]
         }
 
-        const previous_song_info = this.props.mapset.data.maps[this.props.previous_diff]
+        const previous_song_info = this.props.mapset.data.maps[this.props.prediff]
         const difference = {
           cs: 0,
           ar: 0,
@@ -46,7 +46,7 @@ export default class ChartCard extends React.Component {
           difference.star = (song_info.star - previous_song_info.star).toFixed(2)
 
           rader_data.datasets.push({
-            label: this.props.previous_diff,
+            label: "Previous",
             backgroundColor: "rgba(255,99,132,0.2)",
             borderColor: "rgba(255,99,132,1)",
             pointBackgroundColor: "rgba(255,99,132,1)",
