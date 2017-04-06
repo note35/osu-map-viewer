@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from map_crawler.models import MapSet, StandardMap, TaikoMap, CtbMap, ManiaMap 
+from user_crawler.models import User, PPoint 
 
 def get_mode_model(mode):
     if mode == 1:
@@ -64,6 +65,44 @@ def retrieve_mapset(setid, mode):
         return {}
 
 
+def retrieve_user_by_name(name):
+
+    try:
+        user = User.objects.get(name=name)
+        ppoint = PPoint.objects.get(uid=user)
+        ret = {
+            "name": user.name,
+            "uid": user.uid,
+            "avatar": user.avatar,
+            "Standard": {
+                "pp": ppoint.osu_pp,
+                "rank": ppoint.osu_rank,
+                "bonus_pp": ppoint.osu_bonus_pp,
+            },
+            "Taiko": {
+                "pp": ppoint.taiko_pp,
+                "rank": ppoint.taiko_rank,
+                "bonus_pp": ppoint.taiko_bonus_pp,
+            },
+            "Ctb": {
+                "pp": ppoint.ctb_pp,
+                "rank": ppoint.ctb_rank,
+                "bonus_pp": ppoint.ctb_bonus_pp,
+            },
+            "Mania": {
+                "pp": ppoint.mania_pp,
+                "rank": ppoint.mania_rank,
+                "bonus_pp": ppoint.mania_bonus_pp,
+            },
+        }
+        return ret
+    except User.DoesNotExist:
+        return {}
+    except PPoint.DoesNotExist:
+        return {}
+
+    return {}
+
 class MapSetAPI(APIView):
 
     def get(self, request, setid, mode, update=False):
@@ -72,6 +111,15 @@ class MapSetAPI(APIView):
         if update or not mapset or not mapset["maps"]:
             return redirect(reverse("map_crawler:index", kwargs={"setid": setid, "mode": mode}))
         return Response(mapset)
+
+class UserAPI(APIView):
+
+    def get(self, request, name, update=False):
+        user = retrieve_user_by_name(name)
+
+        if update or not user:
+            return redirect(reverse("user_crawler:index", kwargs={"name": name}))
+        return Response(user)
 
 def handle404(request):
     return HttpResponseNotFound('Beatmap not found.')

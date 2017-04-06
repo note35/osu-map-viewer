@@ -23,5 +23,6 @@ from django.contrib.auth.models import User
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     url(r'^map_crawler/', include('map_crawler.urls', namespace="map_crawler")),
+    url(r'^user_crawler/', include('user_crawler.urls', namespace="user_crawler")),
     url(r'^api/', include('api.urls', namespace="api")),
 ]

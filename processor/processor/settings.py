@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'rest_framework',
     'map_crawler',
+    'user_crawler',
     'api',
     'corsheaders',
 ]
