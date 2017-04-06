@@ -70,3 +70,34 @@ API:
     Update difficulty information:
 
     http://127.0.0.1:8000/api/332532/1/1
+
+### Docker
+
+1.Build image
+
+    $ docker build -t base .
+
+2.Run image
+
+    $ docker images -q
+    <images id> <--
+    ...
+    ...
+    $ docker run -p 8080:8080 -p 8000:8000 <images id> 
+
+3.Run django on background
+
+    [In the container]
+    $ cd /srv/osu-map-viewer/processor
+    $ python3.6 manage.py runserver 172.17.0.2:8000 &
+
+4.Run nodejs on background
+
+    [In the container]
+    $ cd /srv/osu-map-viewer/viewer
+    $ npm run dev &
+
+5.Access from browser
+
+    [MacOS: docker-machine ip]
+    http://192.168.99.100:8080
