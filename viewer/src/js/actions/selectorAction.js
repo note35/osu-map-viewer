@@ -1,13 +1,9 @@
-export function changeUpdate() {
+export function changeUpdate(bool) {
   return {
-    type: "FORCED_UPDATE",
+    type: "CHANGE_FORCED_UPDATE",
+    payload: bool
   }    
 } 
-export function changeNotUpdate() {
-  return {
-    type: "FORCED_NOT_UPDATE",
-  }    
-}
 export function changeText(value) {
   return {
     type: "CHANGE_SEARCH_TEXT",
@@ -32,7 +28,7 @@ export function changePrediff(diff) {
     payload: diff
   }    
 }
-export function changeLoadingStat(bool) {
+export function changeLoading(bool) {
   return {
     type: "CHANGE_LOADING_STAT",
     payload: bool

@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { fetchMapsetFromDB } from "../actions/mapsetAction";
-import { changeLoadingStat, changeUpdate, changeNotUpdate, changeText, changeMode, changeDiff, changePrediff } from "../actions/selectorAction";
+import { changeLoading, changeUpdate, changeText, changeMode, changeDiff, changePrediff } from "../actions/selectorAction";
 import Footer from "./Footer";
 import Header from "./Header";
 import Viewer from "./Viewer";
@@ -21,12 +21,8 @@ export default class Layout extends React.Component {
     super();
   }
 
-  changeForcedUpdate(e) {
-    if(this.props.selector.update == false) {
-      this.props.dispatch(changeUpdate());
-    } else if(this.props.selector.update == true) {
-      this.props.dispatch(changeNotUpdate());
-    }
+  changeForcedUpdate() {
+    this.props.dispatch(changeUpdate(!this.props.selector.update));
   }
 
   changeSearchText(e) {
@@ -38,13 +34,13 @@ export default class Layout extends React.Component {
       this.props.dispatch(changePrediff(this.props.selector.diff));
 
     if(this.props.selector.text.includes("https://osu.ppy.sh/s/") && this.props.selector.text.indexOf("https://osu.ppy.sh/s/") == 0) {
-      this.props.dispatch(changeLoadingStat(true));
+      this.props.dispatch(changeLoading(true));
       this.props.dispatch(fetchMapsetFromDB(this.props.selector.text, this.props.selector.mode, this.props.selector.update)).then(() => {
         this.props.dispatch(changeDiff(this.getOrderDiffs(this.props.mapset)[0][0]));
-        this.props.dispatch(changeLoadingStat(false));
+        this.props.dispatch(changeLoading(false));
       }).catch(() => {
         if(this.props.mapsetError) {
-            this.props.dispatch(changeLoadingStat(false));      
+            this.props.dispatch(changeLoading(false));      
             alert("Beatmap is not found");
         }
       });
@@ -76,7 +72,8 @@ export default class Layout extends React.Component {
 
   changeSearchMode(e) {
     this.props.dispatch(changeMode(e.target.value));
-    this.fetchMapset();
+    if(this.props.selector.text)
+      this.fetchMapset();
   }
 
   render() {

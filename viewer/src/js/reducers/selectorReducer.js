@@ -7,17 +7,11 @@ export default function reducer(state={
     loading: false,
   }, action) {
   switch(action.type) {
-    case "FORCED_UPDATE": {
+    case "CHANGE_FORCED_UPDATE": {
       return {
         ...state,
-        update: true
-        };
+        update: action.payload
       }
-    case "FORCED_NOT_UPDATE": {
-      return {
-        ...state,
-        update: false
-      };
     }
     case "CHANGE_SEARCH_TEXT": {
       return {
