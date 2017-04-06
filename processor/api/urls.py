@@ -1,7 +1,6 @@
 from django.conf.urls import url
 from rest_framework.urlpatterns import format_suffix_patterns
 from . import views
-from crawler.views import index as CrawlerIndex
 
 urlpatterns = [
     url(r'^error404$', views.handle404, name="error404"),

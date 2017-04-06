@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
-from crawler.models import MapSet, StandardMap, TaikoMap, CtbMap, ManiaMap 
+from map_crawler.models import MapSet, StandardMap, TaikoMap, CtbMap, ManiaMap 
 
 def get_mode_model(mode):
     if mode == 1:
@@ -70,7 +70,7 @@ class MapSetAPI(APIView):
         mapset = retrieve_mapset(setid, mode)
 
         if update or not mapset or not mapset["maps"]:
-            return redirect(reverse("crawler:index", kwargs={"setid": setid, "mode": mode}))
+            return redirect(reverse("map_crawler:index", kwargs={"setid": setid, "mode": mode}))
         return Response(mapset)
 
 def handle404(request):

@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'rest_framework',
-    'crawler',
+    'map_crawler',
     'api',
     'corsheaders',
 ]
