@@ -72,4 +72,4 @@ def index(request, setid=None, mode=None):
     mapset_model = save_mapset(setid, ret)
     save_map(ret, mapset_model, get_mode_model(int(mode)))
 
-    return redirect(reverse("api:index", kwargs={"setid": setid, "mode": mode}))
+    return redirect(reverse("api:map", kwargs={"setid": setid, "mode": mode}))

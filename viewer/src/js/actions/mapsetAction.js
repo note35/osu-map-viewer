@@ -16,9 +16,9 @@ export function fetchMapsetFromDB(url, mode, force) {
   let query_url = ""
 
   if(force)
-    query_url = "http://127.0.0.1:8000/api/"+setid+"/"+mode+"/1?format=json";
+    query_url = "http://127.0.0.1:8000/api/map/"+setid+"/"+mode+"/1?format=json";
   else
-    query_url = "http://127.0.0.1:8000/api/"+setid+"/"+mode+"?format=json";
+    query_url = "http://127.0.0.1:8000/api/map/"+setid+"/"+mode+"?format=json";
 
   return {
     type: "FETCHDB",
