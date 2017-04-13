@@ -1,0 +1,77 @@
+<html>
+<head>
+  <link rel="stylesheet" href="http://cdn.rawgit.com/TeaMeow/TocasUI/master/dist/tocas.min.css">
+  <title>osu-map-viewer</title>
+<head>
+
+<body>
+  <!-- nav -->
+  <nav class="ts horizontally scrollable large borderless pure basic menu">
+    <div class="ts narrow container">
+      <a class="item">Map Viewer</a>
+      <a class="item">User Viewer</a>
+      <div class="right menu">
+        <button class="ts circular large header">
+            <i class="Github icon"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- selector -->
+  <div class="ts basic borderless slate vertically fitted">
+    <span class="description">
+
+      <button class="ts circular icon negative button">
+        <i class="Lightning icon"></i>
+      </button>
+
+      <div class="ts focus input">
+        <input type="text" placeholder="https://osu.ppy.sh/s/1">
+      </div>
+      <button class="ts circular button">update</button>
+    </span>
+  </div>
+
+  <!-- viewer -->
+  <div class="ts container">
+    <div class="ts horizontal divider"></div>
+
+    <div class="ts segment">
+      <div class="ts active inverted dimmer">
+        <div class="ts text loader">Loading...</div>
+      </div>
+      <div class="ts two cards">
+        <div class="ts card">
+          <div class="content">
+            <div class="header">
+            </div>
+            <div class="description">
+              user result will be here.
+            </div>
+          </div>
+        </div>
+        <div class="ts card">
+          <div class="content">
+            <div class="header">
+            </div>
+            <div class="description">
+              performance result will be here.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ts fitted divider"></div>
+  </div>
+
+  <footer class="ts horizontally fitted fluid secondary segment">
+    <div class="ts narrow container">
+      Created by note35
+    </div>
+  </footer>
+
+</body>
+</html>
+
