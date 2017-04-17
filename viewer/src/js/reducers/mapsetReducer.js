@@ -1,3 +1,5 @@
+import * as t from '../actionTypes';
+
 export default function reducer(state={
     fetching: false,
     fetched: false,
@@ -5,13 +7,13 @@ export default function reducer(state={
     error: null,
   }, action) {
   switch(action.type) {
-    case "FETCHDB_PENDING": {
+    case t.FETCHDB_PENDING: {
       return {
         ...state,
         fetching: true
         };
       }
-    case "FETCHDB_FULFILLED": {
+    case t.FETCHDB_FULFILLED: {
       return {
         ...state,
         fetching: false,
@@ -19,7 +21,7 @@ export default function reducer(state={
         mapset: action.payload
       };
     }
-    case "FETCHDB_REJECTED": {
+    case t.FETCHDB_REJECTED: {
       return {
         ...state,
         fetching: false,

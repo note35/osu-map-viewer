@@ -1,3 +1,5 @@
+import * as t from '../actionTypes';
+
 export default function reducer(state={
     update: false,
     text: "",
@@ -7,37 +9,37 @@ export default function reducer(state={
     loading: false,
   }, action) {
   switch(action.type) {
-    case "CHANGE_FORCED_UPDATE": {
+    case t.CHANGE_FORCED_UPDATE: {
       return {
         ...state,
         update: action.payload
       }
     }
-    case "CHANGE_SEARCH_TEXT": {
+    case t.CHANGE_SEARCH_TEXT: {
       return {
         ...state,
         text: action.payload
       }
     }
-    case "CHANGE_SEARCH_MODE": {
+    case t.CHANGE_SEARCH_MODE: {
       return {
         ...state,
         mode: action.payload
       }
     }
-    case "CHANGE_SEARCH_DIFF": {
+    case t.CHANGE_SEARCH_DIFF: {
       return {
         ...state,
         diff: action.payload
       }
     }
-    case "CHANGE_SEARCH_PREDIFF": {
+    case t.CHANGE_SEARCH_PREDIFF: {
       return {
         ...state,
         prediff: action.payload
       }
     }
-    case "CHANGE_LOADING_STAT": {
+    case t.CHANGE_LOADING_STAT: {
       return {
         ...state,
         loading: action.payload

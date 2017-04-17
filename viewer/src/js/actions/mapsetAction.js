@@ -1,4 +1,5 @@
 import axios from "axios";
+import * as t from '../actionTypes';
 
 export function fetchMapsetFromDB(url, mode, force) {
 
@@ -21,7 +22,7 @@ export function fetchMapsetFromDB(url, mode, force) {
     query_url = "http://127.0.0.1:8000/api/map/"+setid+"/"+mode+"?format=json";
 
   return {
-    type: "FETCHDB",
+    type: t.FETCHDB,
     payload: axios.get(query_url),
   }
 }
