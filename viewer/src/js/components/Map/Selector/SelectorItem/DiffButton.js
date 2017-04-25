@@ -6,11 +6,11 @@ export default class DiffButton extends React.Component {
     const { diff_onchange, diff, diffs } = this.props;
     if(diffs == null) {
       return (
-        <button class="ts disabled button">difficulty</button>
+        <button id="diff_btn" class="ts disabled button">difficulty</button>
       )
     }
     return (
-      <select class="ts borderless basic dropdown" onChange={diff_onchange.bind(null, diff)}>
+      <select id="diff_btn" class="ts borderless basic dropdown" onChange={diff_onchange.bind(null, diff)}>
         {
           diffs.map((val) => <option key={val[0]} value={val[0]}>{val[0]}</option>)
         }
