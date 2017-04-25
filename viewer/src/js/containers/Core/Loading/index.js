@@ -3,16 +3,15 @@ import { connect } from 'react-redux';
 
 import Loading from '../../../components/core/Loading';
 
-class _Loading extends Component {
-  render() {
-    return (
-      <Loading
-        loading={this.props.selector.loading}
-      />
-    );
+const mapStateToProps = (state) => {
+  return {
+    loading: state.selector.loading,
   }
-}
+};
 
-export default connect((store) => {
-    selector: store.selector,
-})(_Loading);
+const mapDispatchToProps = (dispatch) => {
+  return {
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Loading)

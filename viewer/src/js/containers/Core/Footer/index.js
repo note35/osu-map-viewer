@@ -3,15 +3,14 @@ import { connect } from 'react-redux';
 
 import Footer from '../../../components/core/Footer';
 
-class _Footer extends Component {
-
-  render() {
-    return (
-      <Footer />
-    );
+const mapStateToProps = (state) => {
+  return {
   }
-}
+};
 
-export default connect(
+const mapDispatchToProps = (dispatch) => {
+  return {
+  }
+};
 
-)(_Footer)
+export default connect(mapStateToProps, mapDispatchToProps)(Footer)

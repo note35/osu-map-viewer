@@ -3,15 +3,14 @@ import { connect } from 'react-redux';
 
 import Nav from '../../../components/core/Nav';
 
-class _Nav extends Component {
-
-  render() {
-    return (
-      <Nav />
-    );
+const mapStateToProps = (state) => {
+  return {
   }
-}
+};
 
-export default connect(
+const mapDispatchToProps = (dispatch) => {
+  return {
+  }
+};
 
-)(_Nav)
+export default connect(mapStateToProps, mapDispatchToProps)(Nav)

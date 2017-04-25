@@ -32,8 +32,8 @@ const fetchMapset = (diff, text, mode, update, dispatch) => {
   }
 }
 
-const changeSearchDiff = (current_diff, e, dispatch) => {
-  dispatch(changePrediff(current_diff));
+const changeSearchDiff = (diff, e, dispatch) => {
+  dispatch(changePrediff(diff));
   dispatch(changeDiff(e.target.value));
 }
 
@@ -77,8 +77,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     text_onchange: (e) => {
       changeSearchText(e, dispatch);
     },
-    diff_onchange: (current_diff, e) => {
-      changeSearchDiff(current_diff, e, dispatch);
+    diff_onchange: (diff, e) => {
+      changeSearchDiff(diff, e, dispatch);
     },
     mode_onchange: (diff, text, mode, update, e) => {
       changeSearchMode(diff, text, mode, update, e, dispatch);
