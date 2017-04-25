@@ -7,7 +7,7 @@ export default class ForcedButton extends React.Component {
       button_class = "ts circular icon positive button";
     }
     return (
-      <button onClick={this.props.update_onoff} class={button_class}>
+      <button onClick={this.props.update_onoff.bind(null, this.props.update)} class={button_class}>
         <i class="Lightning icon"></i>
       </button>
     )

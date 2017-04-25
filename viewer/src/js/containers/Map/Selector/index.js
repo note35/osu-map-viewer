@@ -6,82 +6,87 @@ import { changeLoading, changeUpdate, changeText, changeMode, changeDiff, change
 
 import Selector from '../../../components/map/Selector';
 
-class _Selector extends Component {
+const changeForcedUpdate = (update, dispatch) => {
+  dispatch(changeUpdate(!update));
+};
 
-  changeForcedUpdate() {
-    this.props.dispatch(changeUpdate(!this.props.selector.update));
-  }
+const changeSearchText = (e, dispatch) => {
+  dispatch(changeText(e.target.value));
+};
 
-  changeSearchText(e) {
-    this.props.dispatch(changeText(e.target.value));
-  } 
+const fetchMapset = (diff, text, mode, update, dispatch) => {
+  if(diff)
+    dispatch(changePrediff(diff));
 
-  fetchMapset() {
-    if(this.props.selector.diff)
-      this.props.dispatch(changePrediff(this.props.selector.diff));
-
-    if(this.props.selector.text.includes("https://osu.ppy.sh/s/") && this.props.selector.text.indexOf("https://osu.ppy.sh/s/") == 0) {
-      this.props.dispatch(changeLoading(true));
-      this.props.dispatch(fetchMapsetFromDB(this.props.selector.text, this.props.selector.mode, this.props.selector.update)).then(() => {
-        this.props.dispatch(changeDiff(this.getOrderDiffs(this.props.mapset)[0][0]));
-        this.props.dispatch(changeLoading(false));
-      }).catch(() => {
-        if(this.props.mapsetError) {
-            this.props.dispatch(changeLoading(false));      
-            alert("Beatmap is not found");
-        }
-      });
-    } else {
-      alert("Please enter a valid url");
-    }
-  }
-
-  changeSearchDiff(e) {
-    this.props.dispatch(changePrediff(this.props.selector.diff));
-    this.props.dispatch(changeDiff(e.target.value));
-  }
-
-  getOrderDiffs(mapset) {
-    if(mapset) {
-      let diffs = [];
-      let { maps } = mapset.data;
-      for(let key in maps) {
-        if(maps.hasOwnProperty(key)) {
-          diffs.push([key, parseFloat(maps[key].star)]);
-        }
-      }
-      diffs.sort(function(a, b) {
-        return a[1]-b[1];
-      });
-      return diffs;
-    }
-  }
-
-  changeSearchMode(e) {
-    this.props.dispatch(changeMode(e.target.value));
-    if(this.props.selector.text)
-      this.fetchMapset();
-  }
-
-  render() {
-    return (
-      <Selector
-          update={this.props.selector.update}
-          text={this.props.selector.text}
-          diffs={this.getOrderDiffs(this.props.mapset)}
-          update_onoff={this.changeForcedUpdate.bind(this)}
-          text_onchange={this.changeSearchText.bind(this)}
-          fetch_mapset_event={this.fetchMapset.bind(this)}
-          diff_onchange={this.changeSearchDiff.bind(this)}
-          mode_onchange={this.changeSearchMode.bind(this)}
-      />
-    );
+  if(text.includes("https://osu.ppy.sh/s/") && text.indexOf("https://osu.ppy.sh/s/") == 0) {
+    dispatch(changeLoading(true));
+    dispatch(fetchMapsetFromDB(text, mode, update)).then((response) => {
+      dispatch(changeLoading(false));
+      dispatch(changeDiff(getOrderDiffs(response.value)[0][0]));
+    }).catch((error) => {
+      dispatch(changeLoading(false));      
+      alert("Beatmap is not found");
+    })
+  } else {
+    alert("Please enter a valid url");
   }
 }
 
-export default connect((store) => {
-  return {
-    mapset: store.mapset.mapset,
-    selector: store.selector,
+const changeSearchDiff = (current_diff, e, dispatch) => {
+  dispatch(changePrediff(current_diff));
+  dispatch(changeDiff(e.target.value));
+}
+
+const getOrderDiffs = (mapset) => {
+  if(mapset) {
+    let diffs = [];
+    let { maps } = mapset.data;
+    for(let key in maps) {
+      if(maps.hasOwnProperty(key)) {
+        diffs.push([key, parseFloat(maps[key].star)]);
+      }
+    }
+    diffs.sort((a, b) => a[1]-b[1]);
+    return diffs;
   }
-})(_Selector);
+}
+
+const changeSearchMode = (diff, text, mode, update, e, dispatch) => {
+  dispatch(changeMode(e.target.value));
+  if(text)
+    fetchMapset(diff, text, mode, update, dispatch);
+}
+
+const mapStateToProps = (state) => {
+  return {
+    mapset: state.mapset.mapset,
+    mapsetError: state.mapset.error,
+    update: state.selector.update,
+    text: state.selector.text,
+    mode: state.selector.mode,
+    diffs: getOrderDiffs(state.mapset.mapset),
+    diff: state.selector.diff,
+  }
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    update_onoff: (update) => {
+      changeForcedUpdate(update, dispatch);
+    },
+    text_onchange: (e) => {
+      changeSearchText(e, dispatch);
+    },
+    diff_onchange: (current_diff, e) => {
+      changeSearchDiff(current_diff, e, dispatch);
+    },
+    mode_onchange: (diff, text, mode, update, e) => {
+      changeSearchMode(diff, text, mode, update, e, dispatch);
+    },
+    fetch_mapset_event: (diff, text, mode, update) => {
+      fetchMapset(diff, text, mode, update, dispatch);
+    }
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Selector)

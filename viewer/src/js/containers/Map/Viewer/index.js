@@ -3,24 +3,19 @@ import { connect } from 'react-redux';
 
 import Viewer from '../../../components/map/Viewer';
 
-class _Viewer extends Component {
-  render() {
-    return (
-      <Viewer
-        mapset={this.props.mapset}
-        diff={this.props.selector.diff}
-        mode={this.props.selector.mode}
-        prediff={this.props.selector.prediff}
-        loading={this.props.selector.loading}
-      />
-    );
-  }
-}
-
-export default connect((store) => {
+const mapStateToProps = (state) => {
   return {
-    mapset: store.mapset.mapset,
-    selector: store.selector,
+    mapset: state.mapset.mapset,
+    mode: state.selector.mode,
+    diff: state.selector.diff,
+    prediff: state.selector.prediff,
+    loading: state.selector.loading,
   }
-})(_Viewer);
+};
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Viewer)

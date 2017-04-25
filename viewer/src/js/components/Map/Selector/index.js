@@ -20,12 +20,21 @@ export default class Selector extends React.Component {
             text_onchange={this.props.text_onchange}
           />
           <SearchBarUpdate
+            diff={this.props.diff}
+            text={this.props.text}
+            mode={this.props.mode}
+            update={this.props.update}
             fetch_mapset_event={this.props.fetch_mapset_event}
           />
           <ModeButton
+            diff={this.props.diff}
+            text={this.props.text}
+            mode={this.props.mode}
+            update={this.props.update}
             mode_onchange={this.props.mode_onchange}
           />
           <DiffButton
+            diff={this.props.diff}
             diffs={this.props.diffs}
             diff_onchange={this.props.diff_onchange}
           />
