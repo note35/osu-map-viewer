@@ -14,7 +14,9 @@ const changeSearchText = (e, dispatch) => {
   dispatch(changeText(e.target.value));
 };
 
-const fetchMapset = (diff, text, mode, update, dispatch) => {
+const fetchMapset = (selector, dispatch) => {
+  const {diff, text, mode, update} = selector;
+
   if(diff)
     dispatch(changePrediff(diff));
 
@@ -22,7 +24,7 @@ const fetchMapset = (diff, text, mode, update, dispatch) => {
     dispatch(changeLoading(true));
     dispatch(fetchMapsetFromDB(text, mode, update)).then((response) => {
       dispatch(changeLoading(false));
-      dispatch(changeDiff(getOrderDiffs(response.value)[0][0]));
+      dispatch(changeDiff(getOrderDiffs(response.value)[0]));
     }).catch((error) => {
       dispatch(changeLoading(false));      
       alert("Beatmap is not found");
@@ -32,40 +34,40 @@ const fetchMapset = (diff, text, mode, update, dispatch) => {
   }
 }
 
-const changeSearchDiff = (diff, e, dispatch) => {
+const changeSearchDiff = (selector, e, dispatch) => {
+  const {diff} = selector;
   dispatch(changePrediff(diff));
   dispatch(changeDiff(e.target.value));
 }
 
 const getOrderDiffs = (mapset) => {
+  console.log(mapset)
   if(mapset) {
     let diffs = [];
     let { maps } = mapset.data;
     for(let key in maps) {
       if(maps.hasOwnProperty(key)) {
-        diffs.push([key, parseFloat(maps[key].star)]);
+        diffs.push([key]);//, parseFloat(maps[key].star)]);
       }
     }
     diffs.sort((a, b) => a[1]-b[1]);
+    console.log(diffs)
     return diffs;
   }
 }
 
-const changeSearchMode = (diff, text, mode, update, e, dispatch) => {
+const changeSearchMode = (selector, e, dispatch) => {
+  const {text} = selector;
   dispatch(changeMode(e.target.value));
   if(text)
-    fetchMapset(diff, text, mode, update, dispatch);
+    fetchMapset(selector, dispatch);
 }
 
 const mapStateToProps = (state) => {
   return {
-    mapset: state.mapset.mapset,
-    mapsetError: state.mapset.error,
-    update: state.selector.update,
-    text: state.selector.text,
-    mode: state.selector.mode,
+    mapset: state.mapset,
+    selector: state.selector,
     diffs: getOrderDiffs(state.mapset.mapset),
-    diff: state.selector.diff,
   }
 };
 
@@ -77,15 +79,15 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     text_onchange: (e) => {
       changeSearchText(e, dispatch);
     },
-    diff_onchange: (diff, e) => {
-      changeSearchDiff(diff, e, dispatch);
+    diff_onchange: (selector, e) => {
+      changeSearchDiff(selector, e, dispatch);
     },
-    mode_onchange: (diff, text, mode, update, e) => {
-      changeSearchMode(diff, text, mode, update, e, dispatch);
+    mode_onchange: (selector, e) => {
+      changeSearchMode(selector, e, dispatch);
     },
-    fetch_mapset_event: (diff, text, mode, update) => {
-      fetchMapset(diff, text, mode, update, dispatch);
-    }
+    fetch_mapset_event: (selector) => {
+      fetchMapset(selector, dispatch);
+    },
   }
 };
 
