@@ -2,9 +2,8 @@ import React from "react";
 
 import ForcedButton from "./SelectorItem/ForcedButton";
 import SearchBar from "./SelectorItem/SearchBar";
-import SearchBarUpdate from "./SelectorItem/SearchBarUpdate";
-import ModeButton from "./SelectorItem/ModeButton";
-import DiffButton from "./SelectorItem/DiffButton";
+import SimpleButton from "./SelectorItem/SimpleButton";
+import SelectButton from "./SelectorItem/SelectButton";
 
 export default class Selector extends React.Component {
   render() {
@@ -12,31 +11,29 @@ export default class Selector extends React.Component {
       <div class="ts basic borderless slate vertically fitted">
         <span class="description">
           <ForcedButton
+            update={this.props.selector.update}
             update_onoff={this.props.update_onoff}
-            update={this.props.update}
           />
           <SearchBar
-            text={this.props.text}
+            text={this.props.selector.text}
             text_onchange={this.props.text_onchange}
           />
-          <SearchBarUpdate
-            diff={this.props.diff}
-            text={this.props.text}
-            mode={this.props.mode}
-            update={this.props.update}
-            fetch_mapset_event={this.props.fetch_mapset_event}
+          <SimpleButton
+            eventHandler={this.props.fetch_mapset_event}
+            eventParam={this.props.selector}
+            name={"update"}
           />
-          <ModeButton
-            diff={this.props.diff}
-            text={this.props.text}
-            mode={this.props.mode}
-            update={this.props.update}
-            mode_onchange={this.props.mode_onchange}
+          <SelectButton
+            eventHandler={this.props.mode_onchange}
+            eventParam={this.props.selector}
+            options={["Standard", "Taiko", "Ctb", "Mania"]}
+            name={"mode"}
           />
-          <DiffButton
-            diff={this.props.diff}
-            diffs={this.props.diffs}
-            diff_onchange={this.props.diff_onchange}
+          <SelectButton
+            eventHandler={this.props.diff_onchange}
+            eventParam={this.props.selector}
+            options={this.props.diffs}
+            name={"difficulty"}
           />
         </span>
       </div>
