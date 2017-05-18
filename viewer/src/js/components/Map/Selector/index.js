@@ -1,7 +1,7 @@
 import React from "react";
 
-import ForcedButton from "./SelectorItem/ForcedButton";
-import SearchBar from "./SelectorItem/SearchBar";
+import OnOffButton from "./SelectorItem/OnOffButton";
+import SimpleTextInput from "./SelectorItem/SimpleTextInput";
 import SimpleButton from "./SelectorItem/SimpleButton";
 import SelectButton from "./SelectorItem/SelectButton";
 
@@ -10,27 +10,27 @@ export default class Selector extends React.Component {
     return (
       <div class="ts basic borderless slate vertically fitted">
         <span class="description">
-          <ForcedButton
-            update={this.props.selector.update}
-            update_onoff={this.props.update_onoff}
+          <OnOffButton
+            curState={this.props.selector.update}
+            eventHandler={this.props.updateOnOff}
           />
-          <SearchBar
-            text={this.props.selector.text}
-            text_onchange={this.props.text_onchange}
+          <SimpleTextInput
+            eventHandler={this.props.textOnChange}
+            defaultText={"https://osu.ppy.sh/s/1"}
           />
           <SimpleButton
-            eventHandler={this.props.fetch_mapset_event}
+            eventHandler={this.props.fetchMapsetEvent}
             eventParam={this.props.selector}
             name={"update"}
           />
           <SelectButton
-            eventHandler={this.props.mode_onchange}
+            eventHandler={this.props.modeOnChange}
             eventParam={this.props.selector}
             options={["Standard", "Taiko", "Ctb", "Mania"]}
             name={"mode"}
           />
           <SelectButton
-            eventHandler={this.props.diff_onchange}
+            eventHandler={this.props.diffOnChange}
             eventParam={this.props.selector}
             options={this.props.diffs}
             name={"difficulty"}

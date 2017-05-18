@@ -6,6 +6,7 @@ import { changeLoading, changeUpdate, changeText, changeMode, changeDiff, change
 
 import Selector from '../../../components/map/Selector';
 
+
 const changeForcedUpdate = (update, dispatch) => {
   dispatch(changeUpdate(!update));
 };
@@ -47,12 +48,13 @@ const getOrderDiffs = (mapset) => {
     let { maps } = mapset.data;
     for(let key in maps) {
       if(maps.hasOwnProperty(key)) {
-        diffs.push([key]);//, parseFloat(maps[key].star)]);
+        diffs.push([key, parseFloat(maps[key].star)]);
       }
     }
     diffs.sort((a, b) => a[1]-b[1]);
-    console.log(diffs)
-    return diffs;
+    let ret_diffs = [];
+    diffs.map((val) => {ret_diffs.push(val[0]);})
+    return ret_diffs;
   }
 }
 
@@ -73,19 +75,19 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    update_onoff: (update) => {
+    updateOnOff: (update) => {
       changeForcedUpdate(update, dispatch);
     },
-    text_onchange: (e) => {
+    textOnChange: (e) => {
       changeSearchText(e, dispatch);
     },
-    diff_onchange: (selector, e) => {
+    diffOnChange: (selector, e) => {
       changeSearchDiff(selector, e, dispatch);
     },
-    mode_onchange: (selector, e) => {
+    modeOnChange: (selector, e) => {
       changeSearchMode(selector, e, dispatch);
     },
-    fetch_mapset_event: (selector) => {
+    fetchMapsetEvent: (selector) => {
       fetchMapset(selector, dispatch);
     },
   }
