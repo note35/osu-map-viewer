@@ -5,18 +5,21 @@ import Loading from "../../Core/Loading";
 
 export default class Viewer extends React.Component {
   render() {
+    const {mapset} = this.props.mapset;
+    const {diff, mode, prediff, loading} = this.props.selector;
+
     return (
       <div class="ts container">
         <div class="ts horizontal divider"></div>
         <div class="ts segment">
           <Loading
-            loading={this.props.loading}
+            loading={loading}
           />
           <CardsLayout
-            mapset={this.props.mapset}
-            diff={this.props.diff}
-            mode={this.props.mode}
-            prediff={this.props.prediff}
+            mapset={mapset}
+            diff={diff}
+            mode={mode}
+            prediff={prediff}
           />
         </div>
         <div class="ts fitted divider"></div>
