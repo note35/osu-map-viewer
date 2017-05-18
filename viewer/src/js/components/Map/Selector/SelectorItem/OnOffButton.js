@@ -1,13 +1,14 @@
 import React from "react";
 
-export default class ForcedButton extends React.Component {
+export default class OnOffButton extends React.Component {
   render() {
+    const {curState, eventHandler} = this.props;
     let button_class = "ts circular icon negative button";
-    if(this.props.update){
+    if(curState){
       button_class = "ts circular icon positive button";
     }
     return (
-      <button onClick={this.props.update_onoff.bind(null, this.props.update)} class={button_class}>
+      <button onClick={eventHandler.bind(null, curState)} class={button_class}>
         <i class="Lightning icon"></i>
       </button>
     )
