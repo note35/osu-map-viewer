@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Viewer from '../../../components/map/Viewer';
+import Viewer from '../../../components/Map/Viewer';
 
 const mapStateToProps = (state) => {
   return {

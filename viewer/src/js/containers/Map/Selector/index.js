@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { fetchMapsetFromDB } from "../../../actions/mapsetAction";
 import { changeLoading, changeUpdate, changeText, changeMode, changeDiff, changePrediff } from "../../../actions/selectorAction";
 
-import Selector from '../../../components/map/Selector';
+import Selector from '../../../components/Map/Selector';
 
 
 const changeForcedUpdate = (update, dispatch) => {

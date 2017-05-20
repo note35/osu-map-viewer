@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Loading from '../../../components/core/Loading';
+import Loading from '../../../components/Core/Loading';
 
 const mapStateToProps = (state) => {
   return {
