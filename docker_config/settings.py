@@ -140,12 +140,7 @@ REST_FRAMEWORK = {
 }
 
 CORS_ORIGIN_WHITELIST = (
-    '172.18.0.2:8000',
-    'localhost:8000',
-    '127.0.0.1:8000',
-    '172.18.0.2:8080',
-    'localhost:8080',
-    '127.0.0.1:8080',
+    '192.168.99.100:8080',
 )
 
 CORS_ALLOW_METHODS = (
