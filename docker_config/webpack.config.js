@@ -19,8 +19,9 @@ module.exports = {
     ]
   },
   devServer: {
-    host: "172.17.0.2",
+    host: "172.18.0.2",
     port: 8080,
+    disableHostCheck: true
   },
   output: {
     path: __dirname + "/src/",

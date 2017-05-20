@@ -83,13 +83,14 @@ API:
     <images id> <--
     ...
     ...
-    $ docker run -p 8080:8080 -p 8000:8000 <images id> 
+    $ docker network create --subnet=172.18.0.0/16 seudonet
+    $ docker run --net seudonet --ip 172.18.0.2 -p 8080:8080 -p 8000:8000 -it <images id> 
 
 3.Run django on background
 
     [In the container]
     $ cd /srv/osu-map-viewer/processor
-    $ python3.6 manage.py runserver 172.17.0.2:8000 &
+    $ python3.6 manage.py runserver 172.18.0.2:8000 &
 
 4.Run nodejs on background
 
